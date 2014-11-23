@@ -8,9 +8,14 @@
 class WPT_Example_Admin {
 
 	function __construct() {
+		
+		global $wp_theatre;
 
 		add_filter('admin_init',array($this,'admin_init'));
 		add_filter('wpt_admin_page_tabs',array($this,'wpt_admin_page_tabs'));
+		
+		$this->plugin_name = $wp_theatre->example->plugin_name;
+		$this->options = get_option($this->plugin_name);
 		
 	}
 		
@@ -24,27 +29,24 @@ class WPT_Example_Admin {
 	 * @since 0.1
 	 * @return void
 	 */
-	function admin_init() {
-
-		global $wp_theatre;
-	
+	function admin_init() {	
         register_setting(
-            $wp_theatre->example->plugin_name, // Option group
-            $wp_theatre->example->plugin_name // Option name
+            $this->plugin_name, // Option group
+            $this->plugin_name // Option name
         );        
 
         add_settings_section(
             'my_example_section', // ID
             '', // Title
             '', // Callback
-            $wp_theatre->example->plugin_name // Page
+            $this->plugin_name // Page
         );  
 
         add_settings_field(
             'my_example_setting', // ID
-            __('An example setting',$this->plugin_name), // Title 
+            __('An example setting','wpt_example'), // Title 
             array( $this, 'my_example_setting_callback' ), // Callback
-            $wp_theatre->example->plugin_name, // Page
+            $this->plugin_name, // Page
             'my_example_section' // Section           
         );      
 	}
@@ -59,10 +61,9 @@ class WPT_Example_Admin {
 	 * @return void
 	 */
 	function my_example_setting_callback() {
-		global $wp_theatre;
-		echo '<input type="text" id="my_example_setting" name="'.$wp_theatre->example->plugin_name.'[my_example_setting]"';
-		if (!empty($wp_theatre->example->options['my_example_setting'])) {
-			echo ' value="'.$wp_theatre->example->options['my_example_setting'].'"';
+		echo '<input type="text" id="my_example_setting" name="'.$this->plugin_name.'[my_example_setting]"';
+		if (!empty($this->options['my_example_setting'])) {
+			echo ' value="'.$this->options['my_example_setting'].'"';
 			
 		}
 		echo ' />';
@@ -76,8 +77,7 @@ class WPT_Example_Admin {
 	 * @return array $tabs
 	 */
 	function wpt_admin_page_tabs($tabs) {
-		global $wp_theatre;
-		$tabs[$wp_theatre->example->plugin_name] = __('Example extension', $wp_theatre->example->plugin_name);		
+		$tabs[$this->plugin_name] = __('Example extension', 'wpt_example');		
 		return $tabs;
 	}
 	

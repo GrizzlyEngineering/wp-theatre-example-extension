@@ -28,11 +28,12 @@ function wpt_example_loader() {
 	require_once(dirname(__FILE__) . '/includes/wpt_example.php');	
 
 	/**
-	 * Add an instance of your class to the global Theater object.
+	 * Add an instance of your class to the global Theater object and then run it.
 	 * 
 	 * Requires Theater 0.9.4.
 	 */
 	$wp_theatre->example = new WPT_Example();
+	$wp_theatre->example->run();
 
 }
 

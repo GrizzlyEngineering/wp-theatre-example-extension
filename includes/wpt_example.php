@@ -17,17 +17,15 @@
 
 			// A unique identifier for your plugin.
 			$this->plugin_name = 'wpt_example';
-			
+
 			/*
 			 * Load the options for your plugin.
 			 * @see WPT_Example_Admin
 			 */
 			$this->options = get_option($this->plugin_name);
 			
-			$this->load_dependencies();
-
-			// Start adding your stuff below...
-
+			// Set more variables that you need to use throughout your extension below...
+			
 		}
 		
 		/**
@@ -42,6 +40,22 @@
 				require_once(dirname(__FILE__) . '/wpt_example_admin.php');
 				$this->admin = new WPT_Example_Admin();
 			}			
+		}
+		
+		/**
+		 * Runs your extension.
+		 *
+		 * Use this to safely add your code when everything is fully loaded.
+		 * 
+		 * @return void
+		 */
+		public function run() {
+			
+			$this->load_dependencies();
+
+			// Start adding your stuff below...
+
+			
 		}
 		
 	}
