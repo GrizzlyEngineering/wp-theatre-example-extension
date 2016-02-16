@@ -27,7 +27,7 @@ function wpt_example_loader() {
 
 	global $wp_theatre;
 
-	require_once( dirname( __FILE__ ) . '/includes/wpt-example-php' );
+	require_once( dirname( __FILE__ ) . '/includes/wpt-example.php' );
 
 	/**
 	 * Add an instance of our class to the global Theater object and then run it.
