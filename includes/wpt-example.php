@@ -1,6 +1,6 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly
 
 /**
  * The class that holds all main functionality of our extension.
@@ -24,7 +24,7 @@ class WPT_Example {
 		 * Load the options for our plugin.
 		 * @see WPT_Example_Admin
 		 */
-		$this->options = get_option($this->plugin_name);
+		$this->options = get_option( $this->plugin_name );
 	}
 
 	/**
@@ -36,11 +36,11 @@ class WPT_Example {
 	 */
 	public function enqueue_styles_scripts() {
 		// only enqueue on front end (including customizer)
-		if (!is_admin()) {
+		if ( ! is_admin() ) {
 			$ver = $this->plugin_version;
 
-			wp_enqueue_style('wpt_example', plugins_url( '../css/style.css', __FILE__ ), array(), $ver);
-			wp_enqueue_script('wpt_example', plugins_url( '../js/main-min.js', __FILE__ ), array('jquery'), $ver, true);
+			wp_enqueue_style( 'wpt_example', plugins_url( '../css/style.css', __FILE__ ), array(), $ver );
+			wp_enqueue_script( 'wpt_example', plugins_url( '../js/main-min.js', __FILE__ ), array( 'jquery' ), $ver, true );
 		}
 	}
 
@@ -52,8 +52,8 @@ class WPT_Example {
 	 * @return void
 	 */
 	private function load_dependencies() {
-		if (is_admin()) {
-			require_once(dirname(__FILE__) . '/wpt_example_admin.php');
+		if ( is_admin() ) {
+			require_once( dirname( __FILE__ ) . '/wpt-example-admin.php' );
 			$this->admin = new WPT_Example_Admin();
 		}
 	}

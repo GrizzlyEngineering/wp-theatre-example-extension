@@ -10,7 +10,7 @@ Text Domain: wpt_example
 Domain Path: /languages
 */
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly
 
 $wpt_example_version = '0.1';
 
@@ -27,7 +27,7 @@ function wpt_example_loader() {
 
 	global $wp_theatre;
 
-	require_once(dirname(__FILE__) . '/includes/wpt_example.php');
+	require_once( dirname( __FILE__ ) . '/includes/wpt-example-php' );
 
 	/**
 	 * Add an instance of our class to the global Theater object and then run it.
@@ -39,4 +39,4 @@ function wpt_example_loader() {
 
 }
 
-add_action('wpt_loaded', 'wpt_example_loader');
+add_action( 'wpt_loaded', 'wpt_example_loader' );

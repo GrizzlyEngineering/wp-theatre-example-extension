@@ -1,6 +1,6 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly
 
 /**
  * All admin stuff that happens inside our extension.
@@ -15,14 +15,14 @@ class WPT_Example_Admin {
 		global $wp_theatre;
 
 		add_filter( 'admin_init', array( $this, 'enqueue_styles_scripts' ) );
-		add_filter('admin_init',array($this,'add_settings_fields_to_tab'));
-		add_filter('wpt_admin_page_tabs',array($this,'add_wpt_admin_page_tab'));
+		add_filter( 'admin_init',array( $this, 'add_settings_fields_to_tab' ) );
+		add_filter( 'wpt_admin_page_tabs',array( $this, 'add_wpt_admin_page_tab' ) );
 
 		// The unique identifier for our plugin, and its version.
 		$this->plugin_name = $wp_theatre->example->plugin_name;
 		$this->plugin_version = $wp_theatre->example->plugin_version;
 
-		$this->options = get_option($this->plugin_name);
+		$this->options = get_option( $this->plugin_name );
 	}
 
 
@@ -37,25 +37,25 @@ class WPT_Example_Admin {
 	 * @return void
 	 */
 	public function add_settings_fields_to_tab() {
-        register_setting(
-            $this->plugin_name, // Option group
-            $this->plugin_name // Option name
-        );
+		register_setting(
+			$this->plugin_name, // Option group
+			$this->plugin_name // Option name
+		);
 
-        add_settings_section(
-            'my_example_section', // ID
-            '', // Title
-            '', // Callback
-            $this->plugin_name // Page
-        );
+		add_settings_section(
+			'my_example_section', // ID
+			'', // Title
+			'', // Callback
+			$this->plugin_name // Page
+		);
 
-        add_settings_field(
-            'my_example_setting', // ID
-            __('An example setting','wpt_example'), // Title
-            array( $this, 'my_example_setting_callback' ), // Callback
-            $this->plugin_name, // Page
-            'my_example_section' // Section
-        );
+		add_settings_field(
+			'my_example_setting', // ID
+			__( 'An example setting','wpt_example' ), // Title
+			array( $this, 'my_example_setting_callback' ), // Callback
+			$this->plugin_name, // Page
+			'my_example_section' // Section
+		);
 	}
 
 	/**
@@ -66,8 +66,8 @@ class WPT_Example_Admin {
 	 * @param array $tabs An array of all tabs on the Theater settings screen.
 	 * @return array $tabs
 	 */
-	public function add_wpt_admin_page_tab($tabs) {
-		$tabs[$this->plugin_name] = __('Example extension', 'wpt_example');
+	public function add_wpt_admin_page_tab( $tabs ) {
+		$tabs[ $this->plugin_name ] = __( 'Example extension', 'wpt_example' );
 		return $tabs;
 	}
 
@@ -82,8 +82,8 @@ class WPT_Example_Admin {
 		global $wp_theatre;
 		$ver = $this->plugin_version;
 
-		wp_enqueue_style('wpt_example_admin', plugins_url( '../css/admin.css', __FILE__ ), array(), $ver);
-		wp_enqueue_script('wpt_example_admin', plugins_url( '../js/admin-min.js', __FILE__ ), array('jquery'), $ver, true);
+		wp_enqueue_style( 'wpt_example_admin', plugins_url( '../css/admin.css', __FILE__ ), array(), $ver );
+		wp_enqueue_script( 'wpt_example_admin', plugins_url( '../js/admin-min.js', __FILE__ ), array( 'jquery' ), $ver, true );
 	}
 
 	/**
@@ -97,7 +97,7 @@ class WPT_Example_Admin {
 	 */
 	public function my_example_setting_callback() {
 		echo '<input type="text" id="my_example_setting" name="'.$this->plugin_name.'[my_example_setting]"';
-		if (!empty($this->options['my_example_setting'])) {
+		if ( ! empty( $this->options['my_example_setting'] ) ) {
 			echo ' value="'.$this->options['my_example_setting'].'"';
 
 		}
