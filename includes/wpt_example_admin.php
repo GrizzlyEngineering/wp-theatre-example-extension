@@ -14,6 +14,7 @@ class WPT_Example_Admin {
 
 		global $wp_theatre;
 
+		add_filter( 'admin_init', array( $this, 'enqueue_styles_scripts' ) );
 		add_filter('admin_init',array($this,'add_settings_fields_to_tab'));
 		add_filter('wpt_admin_page_tabs',array($this,'add_wpt_admin_page_tab'));
 
@@ -68,6 +69,21 @@ class WPT_Example_Admin {
 	public function add_wpt_admin_page_tab($tabs) {
 		$tabs[$this->plugin_name] = __('Example extension', 'wpt_example');
 		return $tabs;
+	}
+
+	/**
+	 * Enqueue styles and scripts for admin screens.
+	 *
+	 * @since 0.1
+	 * @access public
+	 * @return void
+	 */
+	public function enqueue_styles_scripts() {
+		global $wp_theatre;
+		$ver = $this->plugin_version;
+
+		wp_enqueue_style('wpt_example_admin', plugins_url( '../css/admin.css', __FILE__ ), array(), $ver);
+		wp_enqueue_script('wpt_example_admin', plugins_url( '../js/admin-min.js', __FILE__ ), array('jquery'), $ver, true);
 	}
 
 	/**

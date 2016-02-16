@@ -14,6 +14,8 @@ class WPT_Example {
 
 		global $wpt_example_version;
 
+		add_filter( 'init', array( $this, 'enqueue_styles_scripts' ) );
+
 		// A unique identifier for our plugin, and its version.
 		$this->plugin_name = 'wpt_example';
 		$this->plugin_version = $wpt_example_version;
@@ -23,6 +25,23 @@ class WPT_Example {
 		 * @see WPT_Example_Admin
 		 */
 		$this->options = get_option($this->plugin_name);
+	}
+
+	/**
+	 * Enqueue styles and scripts for front end.
+	 *
+	 * @since 0.1
+	 * @access public
+	 * @return void
+	 */
+	public function enqueue_styles_scripts() {
+		// only enqueue on front end (including customizer)
+		if (!is_admin()) {
+			$ver = $this->plugin_version;
+
+			wp_enqueue_style('wpt_example', plugins_url( '../css/style.css', __FILE__ ), array(), $ver);
+			wp_enqueue_script('wpt_example', plugins_url( '../js/main-min.js', __FILE__ ), array('jquery'), $ver, true);
+		}
 	}
 
 	/**
