@@ -70,5 +70,7 @@ class WPT_Example {
 	public function run() {
 
 		$this->load_dependencies();
+
+		load_plugin_textdomain( 'wpt_example', false, dirname( plugin_basename( __FILE__ ) ) . '/../languages/' );
 	}
 }
